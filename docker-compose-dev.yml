@@ -18,15 +18,17 @@ services:
 
     networks:
       - ingest
+      - traefik
 
-  dataverseimporter:
-    image: fjodorvr/dataverse-importer:0.1.0
-    container_name: dataverse-importer
-    command: [ "uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8989" ]
-    ports:
-      - "8989:8989"
-    networks:
-      - ingest
+  # dataverseimporter:
+  #   # image: fjodorvr/dataverse-importer:0.1.0
+  #   container_name: dataverse-importer
+  #   command: [ "uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8989" ]
+  #   ports:
+  #     - "8989:8989"
+  #   networks:
+  #     - ingest
+  #     - traefik
 
   # metadatafetcher:
   #   image: fjodorvr/dataverse-metadata-fetcher:0.1.1
@@ -68,4 +70,6 @@ services:
 
 networks:
   ingest:
+    external: true
+  traefik:
     external: true
