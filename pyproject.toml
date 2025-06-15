@@ -13,6 +13,8 @@ dynaconf = "^3.2.6"
 jmespath = "^1.0.1"
 pydantic = "^2.9.2"
 pydataverse = "^0.3.4"
+factory-boy = "^2.0.0"
+Faker = "^37.3.0"
 
 [tool.poetry.dev-dependencies]
 
