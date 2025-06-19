@@ -14,7 +14,6 @@ services:
       - db
     networks:
       - prefect
-      - traefik
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:4200/api/health" ]
       interval: 15s
@@ -47,8 +46,6 @@ services:
 
 networks:
   prefect:
-  traefik:
-    external: true
 
 volumes:
   prefectdb:
