@@ -8,7 +8,7 @@ import utils
 from prefect import flow, task, get_run_logger
 from configuration.config import settings
 from flows.test_generator.factories import AssetFactory, AuthorFactory, ContactFactory
-from flows.test_generator.mapping import STANDART_MAPPING
+from flows.test_generator.mapping import STANDARD_MAPPING
 from flows.test_generator.template import STANDARD_TEMPLATE
 
 @task
@@ -41,7 +41,7 @@ def map_asset_metadata(asset: dict):
         json={
             'metadata': asset, 
             'template': STANDARD_TEMPLATE,
-            'mapping': STANDART_MAPPING,
+            'mapping': STANDARD_MAPPING,
         }
     )
     mapped_metadata = response.json()

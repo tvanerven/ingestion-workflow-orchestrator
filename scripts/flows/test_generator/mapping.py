@@ -1,4 +1,4 @@
-STANDART_MAPPING = {
+STANDARD_MAPPING = {
     "title": ["title"],
     "author": {
         "mapping": "authors[*]",
