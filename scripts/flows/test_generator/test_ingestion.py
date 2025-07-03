@@ -49,7 +49,7 @@ def map_asset_metadata(asset: dict):
     return mapped_metadata
 
 @task
-def import_asset_to_dataverse(mapped_metadata: dict, dt_alias: str = 'test'):
+def import_asset_to_dataverse(mapped_metadata: dict, dt_alias: str = 'test', dataverse_api_token: str = 'yourtoken'):
     """
     Task to import the mapped metadata into Dataverse.
     """
@@ -70,7 +70,7 @@ def import_asset_to_dataverse(mapped_metadata: dict, dt_alias: str = 'test'):
     return response.json()
 
 @task
-def upload_file(persistent_id: str, dt_alias: str = 'test'):
+def upload_file(persistent_id: str, dt_alias: str = 'test', dataverse_api_token: str = 'yourtoken'):
     logger = get_run_logger()
     minio_client = utils.create_s3_client()
     settings_dict = settings.TEST
@@ -116,17 +116,18 @@ def upload_file(persistent_id: str, dt_alias: str = 'test'):
 
 
 @flow(name="Test Ingestion Pipeline")
-def main(dt_alias: str = 'test'):
+def main(dt_alias: str = 'test', dataverse_api_token: str = 'yourtoken'):
     asset = generate_test_asset()
     mapped_metadata = map_asset_metadata(asset)
 
     import_response = import_asset_to_dataverse(
         mapped_metadata=mapped_metadata,
-        dt_alias=dt_alias
+        dt_alias=dt_alias,
+        dataverse_api_token=dataverse_api_token
     )
     
     dataset_persistent_id = import_response.get('data', {}).get('persistentId')
-    response = upload_file(dataset_persistent_id, dt_alias=dt_alias)
+    response = upload_file(dataset_persistent_id, dt_alias=dt_alias, dataverse_api_token)
 
     return response
 
@@ -138,5 +139,8 @@ if __name__ == "__main__":
         name="Test Ingestion Pipeline",
         work_pool_name='default',
         tags=["test", "ingestion"],
-        parameters={'dt_alias': 'test'},
+        parameters={
+            'dt_alias': 'test',
+            'dataverse_api_token': 'yourtoken'
+        },
     )
