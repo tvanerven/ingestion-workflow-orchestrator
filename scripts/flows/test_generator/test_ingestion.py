@@ -10,7 +10,6 @@ from configuration.config import settings
 from flows.test_generator.factories import AssetFactory, AuthorFactory, ContactFactory
 from flows.test_generator.mapping import STANDARD_MAPPING
 from flows.test_generator.template import STANDARD_TEMPLATE
-from prefect.deployments import Deployment
 
 @task
 def generate_test_asset():
@@ -134,7 +133,7 @@ def main(dt_alias: str = 'test'):
 if __name__ == "__main__":
     main.deploy(
         name="Test Ingestion Pipeline",
-        work_queue_name="test-ingestion-queue",
+        work_queue_name="default",
         tags=["test", "ingestion"],
         parameters={'dt_alias': 'test'}
     )
