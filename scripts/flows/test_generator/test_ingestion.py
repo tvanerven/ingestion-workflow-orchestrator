@@ -10,6 +10,7 @@ from configuration.config import settings
 from flows.test_generator.factories import AssetFactory, AuthorFactory, ContactFactory
 from flows.test_generator.mapping import STANDARD_MAPPING
 from flows.test_generator.template import STANDARD_TEMPLATE
+from prefect.deployments import Deployment
 
 @task
 def generate_test_asset():
@@ -37,7 +38,7 @@ def map_asset_metadata(asset: dict):
     logger = get_run_logger()
 
     response = requests.post(
-        url='http://dataversemapper:8082/mapper',
+        url='https://dataversemapper.wizardtower.dev/mapper',
         json={
             'metadata': asset, 
             'template': STANDARD_TEMPLATE,
@@ -49,19 +50,19 @@ def map_asset_metadata(asset: dict):
     return mapped_metadata
 
 @task
-def import_asset_to_dataverse(mapped_metadata: dict):
+def import_asset_to_dataverse(mapped_metadata: dict, dt_alias: str = 'test'):
     """
     Task to import the mapped metadata into Dataverse.
     """
     logger = get_run_logger()
 
     response = requests.post(
-        url='http://dataverse-importer:8989/importer',
+        url='https://dataverse-importer.wizardtower.dev/importer',
         json={
             'metadata': mapped_metadata,
             'dataverse_information': {
                 'base_url': os.environ.get('DATAVERSE_URL'),
-                'dt_alias': 'test',
+                'dt_alias': dt_alias,
                 'api_token': os.environ.get('DATAVERSE_API_TOKEN'),
             },
         }
@@ -70,7 +71,7 @@ def import_asset_to_dataverse(mapped_metadata: dict):
     return response.json()
 
 @task
-def upload_file(persistent_id: str):
+def upload_file(persistent_id: str, dt_alias: str = 'test'):
     logger = get_run_logger()
     minio_client = utils.create_s3_client()
     settings_dict = settings.TEST
@@ -98,13 +99,13 @@ def upload_file(persistent_id: str):
     )
 
     response = requests.post(
-        url='http://dataverse-importer:8989/file-upload',
+        url='https://dataverse-importer.wizardtower.dev/file-upload',
         data={
             'json_data': json.dumps({
                 'doi': persistent_id, 
                 'dataverse_information': {
                     'base_url': os.environ.get('DATAVERSE_URL'),
-                    'dt_alias': 'test',
+                    'dt_alias': dt_alias,
                     'api_token': os.environ.get('DATAVERSE_API_TOKEN'),
                 },
             })
@@ -116,18 +117,24 @@ def upload_file(persistent_id: str):
 
 
 @flow(name="Test Ingestion Pipeline")
-def main():
+def main(dt_alias: str = 'test'):
     asset = generate_test_asset()
     mapped_metadata = map_asset_metadata(asset)
 
     import_response = import_asset_to_dataverse(
-        mapped_metadata=mapped_metadata
+        mapped_metadata=mapped_metadata,
+        dt_alias=dt_alias
     )
     
     dataset_persistent_id = import_response.get('data', {}).get('persistentId')
-    response = upload_file(dataset_persistent_id)
+    response = upload_file(dataset_persistent_id, dt_alias=dt_alias)
 
     return response
 
 if __name__ == "__main__":
-    main()
+    main.deploy(
+        name="Test Ingestion Pipeline",
+        work_queue_name="test-ingestion-queue",
+        tags=["test", "ingestion"],
+        parameters={'dt_alias': 'test'}
+    )

@@ -1,0 +1,4 @@
+[default]
+BUCKET_NAME='test
+DATAVERSE_URL='https://fairvault.dev.ugent.be'
+DATAVERSE_API_TOKEN='nope'

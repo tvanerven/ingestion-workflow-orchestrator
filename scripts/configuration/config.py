@@ -6,6 +6,7 @@ settings = Dynaconf(
         'scripts/configuration/odissei_settings.toml',
         'scripts/configuration/sicada_settings.toml',
         'scripts/configuration/.secrets.toml'
+        'scripts/configuration/test.toml'
     ],
     environments=True,
 )
