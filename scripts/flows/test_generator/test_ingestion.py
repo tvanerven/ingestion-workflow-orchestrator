@@ -132,7 +132,7 @@ def main(dt_alias: str = 'test'):
 
 if __name__ == "__main__":
     main.from_source(
-        source="/app/scripts/flows/test_generator/test_ingestion.py",
+        source="/app/scripts/flows/test_generator",
         entrypoint="test_ingestion.py:main"
     ).deploy(
         name="Test Ingestion Pipeline",
