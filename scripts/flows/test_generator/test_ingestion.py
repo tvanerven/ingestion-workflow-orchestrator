@@ -133,7 +133,7 @@ def main(dt_alias: str = 'test'):
 if __name__ == "__main__":
     main.deploy(
         name="Test Ingestion Pipeline",
-        work_queue_name="default",
+        work_pool_name='default',
         tags=["test", "ingestion"],
         parameters={'dt_alias': 'test'}
     )
