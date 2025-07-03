@@ -131,9 +131,12 @@ def main(dt_alias: str = 'test'):
     return response
 
 if __name__ == "__main__":
-    main.deploy(
+    main.from_source(
+        source="/app/scripts/flows/test_generator/test_ingestion.py",
+        entrypoint="test_ingestion.py:main"
+    ).deploy(
         name="Test Ingestion Pipeline",
         work_pool_name='default',
         tags=["test", "ingestion"],
-        parameters={'dt_alias': 'test'}
+        parameters={'dt_alias': 'test'},
     )
