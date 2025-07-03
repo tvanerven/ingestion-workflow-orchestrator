@@ -127,7 +127,7 @@ def main(dt_alias: str = 'test', dataverse_api_token: str = 'yourtoken'):
     )
     
     dataset_persistent_id = import_response.get('data', {}).get('persistentId')
-    response = upload_file(dataset_persistent_id, dt_alias=dt_alias, dataverse_api_token)
+    response = upload_file(dataset_persistent_id, dt_alias=dt_alias, dataverse_api_token=dataverse_api_token)
 
     return response
 
