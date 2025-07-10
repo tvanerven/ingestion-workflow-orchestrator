@@ -171,15 +171,17 @@ STANDARD_TEMPLATE = {
               "typeName": "FVAccessConditions",
               "multiple": False,
               "typeClass": "compound",
-              "value": {
-                "FVAccessRights": {
-                  "typeName": "FVAccessRights",
-                  "multiple": False,
-                  "typeClass": "primitive",
-                  "value": "Green"
-                }
+              "value": [
+                {
+                  "FVAccessRights": {
+                    "typeName": "FVAccessRights",
+                    "multiple": False,
+                    "typeClass": "primitive",
+                    "value": "Green"
+                    }
+                  }
+                ]
               }
-            }
           ]
         }
       }
