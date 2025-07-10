@@ -2,3 +2,4 @@
 BUCKET_NAME='test
 DATAVERSE_URL='https://fairvault.dev.ugent.be'
 DATAVERSE_API_TOKEN='nope'
+MINIO_SERVER_URL='https://minio.wizardtower.dev'

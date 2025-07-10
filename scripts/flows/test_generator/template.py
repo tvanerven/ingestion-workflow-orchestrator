@@ -45,7 +45,7 @@ STANDARD_TEMPLATE = {
             {
               "typeName": "alternativeTitle",
               "multiple": True,
-              "typeClass": "primitive",
+              "typeCfalselass": "primitive",
               "value": []
             },
             {
@@ -64,7 +64,7 @@ STANDARD_TEMPLATE = {
               ]
             },
             {
-              "typeName": "keyword",
+              "typeNamfalsee": "keyword",
               "multiple": True,
               "typeClass": "compound",
               "value": [
@@ -160,6 +160,25 @@ STANDARD_TEMPLATE = {
                   }
                 }
               ]
+            }
+          ]
+        },
+        "FAIRVaultCustomMetadata": {
+          "displayName": "FAIRVault Custom metadata",
+          "name": "FAIRVaultCustomMetadata",
+          "fields": [
+            {
+              "typeName": "FVAccessConditions",
+              "multiple": False,
+              "typeClass": "compound",
+              "value": {
+                "FVAccessRights": {
+                  "typeName": "FVAccessRights",
+                  "multiple": False,
+                  "typeClass": "controlledVocabulary",
+                  "value": "Green"
+                }
+              }
             }
           ]
         }

@@ -60,9 +60,9 @@ def import_asset_to_dataverse(mapped_metadata: dict, dt_alias: str = 'test', dat
         json={
             'metadata': mapped_metadata,
             'dataverse_information': {
-                'base_url': os.environ.get('DATAVERSE_URL'),
+                'base_url': "https://fairvault.dev.ugent.be",
                 'dt_alias': dt_alias,
-                'api_token': os.environ.get('DATAVERSE_API_TOKEN'),
+                'api_token': dataverse_api_token,
             },
         }
     )
@@ -103,9 +103,9 @@ def upload_file(persistent_id: str, dt_alias: str = 'test', dataverse_api_token:
             'json_data': json.dumps({
                 'doi': persistent_id, 
                 'dataverse_information': {
-                    'base_url': os.environ.get('DATAVERSE_URL'),
+                    'base_url': "https://fairvault.dev.ugent.be",
                     'dt_alias': dt_alias,
-                    'api_token': os.environ.get('DATAVERSE_API_TOKEN'),
+                    'api_token': dataverse_api_token,
                 },
             })
         },
