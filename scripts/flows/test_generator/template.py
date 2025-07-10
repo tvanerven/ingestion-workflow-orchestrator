@@ -175,7 +175,7 @@ STANDARD_TEMPLATE = {
                 "FVAccessRights": {
                   "typeName": "FVAccessRights",
                   "multiple": False,
-                  "typeClass": "controlledVocabulary",
+                  "typeClass": "primitive",
                   "value": "Green"
                 }
               }
