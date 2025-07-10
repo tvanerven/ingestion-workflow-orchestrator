@@ -45,7 +45,7 @@ STANDARD_TEMPLATE = {
             {
               "typeName": "alternativeTitle",
               "multiple": True,
-              "typeCfalselass": "primitive",
+              "typeClass": "primitive",
               "value": []
             },
             {
