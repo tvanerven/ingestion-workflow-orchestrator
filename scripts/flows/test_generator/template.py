@@ -164,23 +164,19 @@ STANDARD_TEMPLATE = {
           ]
         },
         "FAIRVaultCustomMetadata": {
-          "displayName": "FAIRVault Custom metadata",
-          "name": "FAIRVaultCustomMetadata",
           "fields": [
             {
               "typeName": "FVAccessConditions",
               "multiple": False,
               "typeClass": "compound",
-              "value": [
-                {
-                  "FVAccessRights": {
-                    "typeName": "FVAccessRights",
-                    "multiple": False,
-                    "typeClass": "primitive",
-                    "value": "Green"
-                  }
-                }
-              ]
+              "value":{
+                "FVAccessRights": {
+                  "typeName": "FVAccessRights",
+                  "multiple": False,
+                  "typeClass": "primitive",
+                  "value": "Green"
+                },
+              }
             }
           ]
         }
