@@ -64,7 +64,7 @@ STANDARD_TEMPLATE = {
               ]
             },
             {
-              "typeNamfalsee": "keyword",
+              "typeName": "keyword",
               "multiple": True,
               "typeClass": "compound",
               "value": [
@@ -178,10 +178,10 @@ STANDARD_TEMPLATE = {
                     "multiple": False,
                     "typeClass": "primitive",
                     "value": "Green"
-                    }
                   }
-                ]
-              }
+                }
+              ]
+            }
           ]
         }
       }
